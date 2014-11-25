@@ -1,0 +1,8 @@
+
+bin
+build
+tmp
+.idea
+*.log
+node_modules
+public/libs

@@ -1,0 +1,29 @@
+doctype html
+html
+
+  head
+    title= title
+    meta(charset="utf-8")
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(rel="stylesheet" type="text/css" href="/libs/bootstrap/dist/css/bootstrap.css")
+    block head
+
+  body
+    .navbar.navbar-default.navbar-static-top(role='navigation')
+      .container
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#') FaleMais
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            li: a(href='/logout') Sair
+    .container
+      block content
+
+  script(src='http://code.jquery.com/jquery-2.1.1.min.js')
+  script(type='text/javascript', src='/libs/bootstrap/dist/js/bootstrap.min.js')
+  block script
