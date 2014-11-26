@@ -6,6 +6,7 @@ module.exports = (app) ->
         login = req.param('login')
         res.render "login",
             login: login || {}
+            title: 'Login'
             mensagem: if login then "nome e email são obrigatórios"
 
     login: (req, res, next) ->
