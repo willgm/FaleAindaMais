@@ -2,3 +2,62 @@ extends layout
 
 block content
   h2 Bem-vindo #{usuario}!
+
+  form(action='/login', method='post', ng-app='transparencia', ng-init="valores=#{JSON.stringify(valoresFaleMais)}")
+
+    .row.top-30
+      label.col-sm-3.block Origem
+        select(name='origem', ng-model='origem', ng-init="origem=valores[0].origem",
+          ng-options="valor.origem as valor.origem for valor in valores | unique: 'origem'",
+          ng-change='destino=(valores | filter:{origem:origem})[0].destino').form-control
+
+      label.col-sm-3.block Destino
+        select(name='destino', ng-model='destino', ng-init="destino=valores[0].destino",
+          ng-options="valor.destino as valor.destino for valor in valores | filter: {origem:origem}").form-control
+
+      label.col-sm-3.block Plano
+        select(name='plano', ng-model='plano', ng-init='plano=30').form-control
+          option(value='30') FaleMais 30
+          option(value='60') FaleMais 60
+          option(value='120') FaleMais 120
+
+      label.col-sm-3.block Tempo
+        input(type='text', name='tempo', ng-model='tempo').form-control
+
+    .row.top-30
+      .col-sm-6.text-center Valor com o plano:
+        br
+        .text-primary(ng-bind="tempo | calculo : valores : origem : destino : plano | currency")
+      .col-sm-6.text-center Valor sem o plano:
+        br
+        .text-primary(ng-bind="tempo | calculo: valores : origem : destino | currency")
+
+block script
+  script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular.min.js')
+  script
+    :coffee
+      angular.module 'transparencia', []
+        .filter 'unique', ->
+          (array, chave) ->
+            indices = []
+            array.reduce(
+              (a, c) ->
+                if indices.indexOf(c[chave]) < 0
+                  indices.push c[chave]
+                  a.push c
+                a
+              []
+            )
+        .filter 'calculo', ->
+          (tempo, valores, origem, destino, plano) ->
+            tempo = parseInt(tempo)
+            plano = parseInt(plano)
+            return 0 if not tempo or tempo <= plano
+            preco = valores
+              .filter (v) ->
+                v.origem is origem and v.destino is destino
+              .pop()
+              .preco
+            if plano
+              ( tempo - plano ) * preco * 1.1
+            else tempo * preco
