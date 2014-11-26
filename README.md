@@ -10,6 +10,7 @@ Com o mongo e o redis iniciados apenas veja a mágica acontecer:
 ```
 npm start
 ```
+Entre com qualquer nome e e-mail.
 
 ## Testando
 Com a app já iniciada:
