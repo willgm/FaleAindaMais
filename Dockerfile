@@ -2,12 +2,17 @@ FROM node:0.10.36
 MAINTAINER William Grasel
 
 # Define mountable directories.
-VOLUME ["/src"]
+VOLUME ["/home/node/app"]
 
 # Define working directory.
-WORKDIR /src
+WORKDIR /home/node/app
 
-#expose dev port
+# Run as a normal user
+RUN useradd -ms /bin/bash node
+RUN chown -R node:node /home/node
+USER node
+
+# Expose dev port
 EXPOSE 5000
 
 # Expose debug port
