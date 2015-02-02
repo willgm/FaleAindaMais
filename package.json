@@ -7,9 +7,7 @@
     "prestart": "npm install",
     "start": "node cluster",
     "pretest": "npm install && webdriver-manager update",
-    "test": "protractor test/protractor-conf.js",
-    "predocker": "sudo docker run -d --name mongo mongo && sudo docker run -d --name redis redis && sudo docker build -t falemaisimg .",
-    "docker": "sudo docker run -dp 5000:5000 -v ~/dev/FaleAindaMais/:/home/node/app --link mongo:mongo --link redis:redis --name falemais falemaisimg"
+    "test": "protractor test/protractor-conf.js"
   },
   "dependencies": {
     "coffee-script": "1.7.1",
