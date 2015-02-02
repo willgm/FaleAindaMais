@@ -3,7 +3,7 @@ url = require "url"
 rtgURL = process.env.REDISTOGO_URL
 
 exports.createClient = cli = ->
-    return redis.createClient() unless rtgURL
+    return redis.createClient(6379, 'redis') unless rtgURL
     rtg = url.parse rtgURL
     client = redis.createClient rtg.port, rtg.hostname
     client.auth rtg.auth.split(":")[1]

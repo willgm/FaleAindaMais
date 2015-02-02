@@ -17,7 +17,7 @@ SECRET = 'por atena!'
 
 cookie = cookieParser SECRET
 sessionStore = redisman.createSessionStore session
-mongoUri = process.env.MONGOLAB_URI or process.env.MONGOHQ_URL or 'mongodb://localhost/falemais'
+mongoUri = process.env.MONGOLAB_URI or process.env.MONGOHQ_URL or 'mongodb://mongo/falemais'
 port = process.env.PORT || 5000
 
 app = express()
